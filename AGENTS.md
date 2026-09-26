@@ -1,0 +1,7 @@
+# Handlefinder Agent Instructions
+
+`backend/app/` contains the FastAPI service and handle-search implementation; `frontend/src/` contains the React interface. Run the backend from `backend/` so `app.main` imports resolve. The README calls for Python 3.9+; use a virtual environment. `python -m pip install -r app/requirements.txt` installs the listed backend dependencies, but that manifest omits FastAPI and Uvicorn, so it does not establish runtime readiness. Build the frontend first with `npm run build` from `frontend/`: the backend mounts `../frontend/build/static` during import. Once that artifact exists and the dependency gap is resolved within the task, `uvicorn app.main:app` starts the server from `backend/`.
+
+The frontend uses npm with its own lockfile: from `frontend/`, run `npm ci`, `npm start` for development, `npm test -- --watchAll=false` for the configured React Scripts suite, and `npm run build` for a production build. There is no declared backend test runner; syntax-check affected Python files without importing the service, and state that limitation.
+
+Complete a changed surface with its relevant test/build and an inspected UI or isolated route check. Preserve the frontend/backend request contract and keep changes scoped. Handle lookups associate identities with people; use fixtures for routine verification and respect the requested handles and existing authorization for real searches. Report actual checks, baseline dependency failures, and unverified runtime behavior without treating setup as a passing test.
